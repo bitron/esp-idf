@@ -30,7 +30,7 @@
 #endif // CONFIG_IDF_TARGET_ESP32S3
 
 /* Read/Write timeout (number of iterationis) */
-#define ULP_RISCV_I2C_RW_TIMEOUT            500
+#define ULP_RISCV_I2C_RW_TIMEOUT            (500 * 1000 / 5)
 
 /*
  * The RTC I2C controller follows the I2C command registers to perform read/write operations.
@@ -88,7 +88,7 @@ static inline int32_t ulp_riscv_i2c_wait_for_interrupt(uint32_t timeout)
             return -1;
         }
 
-        ulp_riscv_delay_cycles(ULP_RISCV_CYCLES_PER_MS);
+        ulp_riscv_delay_cycles(ULP_RISCV_CYCLES_PER_US * 5);
         to++;
     }
 

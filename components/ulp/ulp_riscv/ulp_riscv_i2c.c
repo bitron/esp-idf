@@ -43,7 +43,7 @@ rtc_io_dev_t *rtc_io_dev = &RTCIO;
 #define MICROSEC_TO_RTC_FAST_CLK(period)    (period) * ((float)(SOC_CLK_RC_FAST_FREQ_APPROX) / (1000000.0))
 
 /* Read/Write timeout (number of iterations)*/
-#define ULP_RISCV_I2C_RW_TIMEOUT            500
+#define ULP_RISCV_I2C_RW_TIMEOUT            (500 * 1000 / 5)
 
 static esp_err_t i2c_gpio_is_cfg_valid(gpio_num_t sda_io_num, gpio_num_t scl_io_num)
 {
@@ -259,7 +259,7 @@ static inline esp_err_t ulp_riscv_i2c_wait_for_interrupt(uint32_t timeout)
             break;
         }
 
-        vTaskDelay(1);
+        esp_rom_delay_us(5);   //TODO Find an alternative?
 
         /* Loop timeout. If this expires, we return ESP_ERR_TIMEOUT */
         to++;
