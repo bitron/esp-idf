@@ -259,7 +259,7 @@ static inline esp_err_t ulp_riscv_i2c_wait_for_interrupt(uint32_t timeout)
             break;
         }
 
-        vTaskDelay(1);
+        // vTaskDelay(1);   //TODO Find an alternative
 
         /* Loop timeout. If this expires, we return ESP_ERR_TIMEOUT */
         to++;
